@@ -273,7 +273,8 @@ export function ModelStage({ onProgress, onReady }: ModelStageProps) {
     const mount = canvasMountRef.current;
     if (!mount) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Always animate the 3D scene, regardless of the visitor's OS-level reduced-motion setting.
+    const reducedMotion = false;
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     let alive = true;
     const scene = new THREE.Scene();

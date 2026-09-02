@@ -103,7 +103,7 @@ export function LoadingIntro({ progress, ready, onComplete }: LoadingIntroProps)
     if (!active) return;
 
     const mount = sceneRef.current;
-    if (!mount || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!mount) return;
 
     let disposed = false;
     let frameId = 0;
