@@ -1,0 +1,317 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+  isolation: isolate;
+  background: #071a22;
+  color: #fff;
+  opacity: 1;
+  transition: opacity 680ms cubic-bezier(0.4, 0, 0.2, 1), visibility 680ms linear;
+}
+
+.leaving {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.collage {
+  position: absolute;
+  inset: -2px;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  overflow: hidden;
+  background: #071a22;
+  filter: brightness(0.82) saturate(0.7) contrast(1.04);
+}
+
+.collage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 47%, rgba(2, 8, 10, 0.25) 0 19%, rgba(3, 12, 15, 0.48) 55%, rgba(3, 8, 10, 0.66) 100%),
+    linear-gradient(115deg, rgba(5, 25, 31, 0.34), rgba(25, 12, 5, 0.3));
+  pointer-events: none;
+}
+
+.collageTile {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.collageTile img {
+  object-fit: cover;
+  transform: scale(1.035);
+}
+
+.collagePrimary {
+  grid-row: 1 / 3;
+}
+
+.collagePrimary img {
+  object-position: 47% center;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.scene canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.staticLogo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 47%, rgba(47, 191, 191, 0.09), transparent 31%);
+}
+
+.staticLogoImage {
+  display: block;
+  width: min(520px, 72vw);
+  height: auto;
+  object-fit: contain;
+  opacity: 1;
+  transition: opacity 260ms ease;
+}
+
+.staticLogoHidden .staticLogoImage {
+  opacity: 0;
+}
+
+.ui {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 0 24px max(40px, calc(36px + env(safe-area-inset-bottom)));
+  color: rgba(255, 255, 255, 0.46);
+  font: 500 11px/1 "Avenir Next", "Segoe UI Variable", Inter, system-ui, sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.loadingDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 320ms ease,
+    transform 320ms ease;
+}
+
+.loadingDetailsReady {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.track {
+  position: relative;
+  width: min(340px, 62vw);
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #2fbfbf 0%, #c1d72e 36%, #f79f1f 68%, #e6007e 100%);
+  box-shadow: 0 0 14px rgba(47, 191, 191, 0.25);
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.enterButton {
+  display: inline-flex;
+  min-width: 206px;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 12px 42px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+  animation: enter-appear 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.enterButton:hover {
+  color: #071a22;
+  background: #fff;
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.enterButton:focus-visible {
+  outline: 3px solid #f7a826;
+  outline-offset: 5px;
+}
+
+.enterButton:active {
+  transform: translateY(0);
+}
+
+.enterArrow {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.enterButton:hover .enterArrow,
+.enterButton:focus-visible .enterArrow {
+  transform: translateX(3px);
+}
+
+.indeterminate {
+  width: 34%;
+  animation: loading-sweep 1.15s ease-in-out infinite;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-height: 12px;
+}
+
+.percentage {
+  min-width: 39px;
+  color: rgba(255, 255, 255, 0.78);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+.screenReaderStatus {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes loading-sweep {
+  from {
+    transform: translateX(-105%);
+  }
+  to {
+    transform: translateX(295%);
+  }
+}
+
+@keyframes enter-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .collage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.18fr 0.82fr;
+  }
+
+  .collagePrimary {
+    grid-column: 1 / 3;
+    grid-row: 1;
+  }
+
+  .collageTile img {
+    transform: scale(1.06);
+  }
+
+  .staticLogoImage {
+    width: min(440px, 78vw);
+  }
+
+  .ui {
+    gap: 15px;
+    padding-bottom: max(34px, calc(28px + env(safe-area-inset-bottom)));
+    font-size: 9px;
+  }
+
+  .loadingDetails {
+    gap: 15px;
+  }
+
+  .enterButton {
+    min-width: 194px;
+    min-height: 50px;
+    padding-inline: 22px;
+    font-size: 10px;
+  }
+
+  .track {
+    width: min(300px, 72vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition-duration: 180ms;
+  }
+
+  .indeterminate {
+    width: 42%;
+    animation: none;
+  }
+
+  .fill {
+    transition: none;
+  }
+
+  .loadingDetails,
+  .enterButton,
+  .enterArrow,
+  .staticLogoImage {
+    animation: none;
+    transition: none;
+  }
+}
